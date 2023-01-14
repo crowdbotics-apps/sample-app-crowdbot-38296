@@ -1,27 +1,24 @@
 version: "3.9"
 
 services:
-  web:
-    build:
-      context: .
-      args:
-        SECRET_KEY: ${SECRET_KEY}
-    env_file: .env
-    volumes:
-      - ./:/opt/webapp
-    ports:
-      - "8000:${PORT}"
-  postgres:
-    environment:
-      POSTGRES_PASSWORD: <postgres_pwd>
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-  redis:
-    ports:
-      - "6379:6379"
+  api:
+    networks:
+      - mailhog
 
-volumes: 
-  postgres-data:
+  redis-ui:
+    image: marian/rebrow
+    networks:
+      - redis
+    ports:
+      - "5001:5001"
 
+  mailhog:
+    image: mailhog/mailhog
+    networks:
+      - mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+networks:
+  mailhog:
