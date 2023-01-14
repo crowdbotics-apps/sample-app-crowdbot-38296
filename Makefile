@@ -1,5 +1,5 @@
 DB_SERVICE_NAME=postgres
-API_SERVICE=api
+API_SERVICE=app
 
 .PHONY: help # Generate list of targets with descriptions
 help:
