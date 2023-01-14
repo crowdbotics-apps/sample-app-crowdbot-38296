@@ -1,4 +1,4 @@
-"""sample_app_crowdbot_38296 URL Configuration
+"""project URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.2/topics/http/urls/
@@ -22,16 +22,16 @@ from rest_framework import permissions
 from drf_spectacular.views import SpectacularJSONAPIView, SpectacularSwaggerView
 
 urlpatterns = [
-    path("", include("home.urls")),
+    path("", include("apps.home.urls")),
     path("accounts/", include("allauth.urls")),
-    path("modules/", include("modules.urls")),
-    path("api/v1/", include("home.api.v1.urls")),
+    path("modules/", include("apps.modules.urls")),
+    path("api/v1/", include("apps.home.api.v1.urls")),
     path("admin/", admin.site.urls),
-    path("users/", include("users.urls", namespace="users")),
-    path("rest-auth/", include("rest_auth.urls")),
+    path("users/", include("apps.users.urls", namespace="users")),
+    #path("rest-auth/", include("rest_auth.urls")),
     # Override email confirm to use allauth's HTML view instead of rest_auth's API view
-    path("rest-auth/registration/account-confirm-email/<str:key>/", confirm_email),
-    path("rest-auth/registration/", include("rest_auth.registration.urls")),
+    #path("rest-auth/registration/account-confirm-email/<str:key>/", confirm_email),
+    #path("rest-auth/registration/", include("rest_auth.registration.urls")),
 ]
 
 admin.site.site_header = "Sample App - Crowdbotic"
