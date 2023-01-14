@@ -2,5 +2,6 @@ from django.apps import AppConfig
 
 
 class ModulesConfig(AppConfig):
-    name = 'modules'
+    name = 'apps.modules'
+    label = 'modules'
     verbose_name = 'Crowdbotics Modules'

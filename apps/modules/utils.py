@@ -24,7 +24,7 @@ def get_options(module_slug, option_key):
             option_value = module_options.get(option_key, None)
 
     module_options_file = next(
-        Path(".").rglob(f"**/{module_slug.replace('-', '_')}/**/options.py")
+        Path("").rglob(f"**/{module_slug.replace('-', '_')}/**/options.py")
     )
 
     options_module = posixpath_to_modulepath(module_options_file)

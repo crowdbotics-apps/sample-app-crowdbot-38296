@@ -16,12 +16,14 @@ This is a repository for a web application developed with Django, built with [Cr
 ## Project Structure
 
     ..
-    ├── home                           # Starter home app
-    ├── modules                        # Crowdbotics Modules app
-    ├── sample_app_crowdbot_38296  # Django project configurations
-    ├── static                         # Static assets
-    ├── users                          # Starter users app
-    ├── web_build                      # React Native Web build
+    ├── apps
+       ├── home     # Starter home app
+       ├── modules  # Crowdbotics Modules app
+       ├── users            
+    ├── project     # Django project configurations
+    ├── static      # Static assets
+    ├── mediafiles  # Media assets
+    ├── web_build   # React Native Web build
     ├── ...
     ├── README.md
     └── ...
