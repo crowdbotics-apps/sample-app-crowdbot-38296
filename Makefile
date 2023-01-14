@@ -29,7 +29,7 @@ db_flush:
 	@make db_update
 
 #--------------------------------------- DOCS -----------------------------------
-.PHONY: doc_domain_diagrams	# Generates diagrams to be shown in documentation
+.PHONY: doc_domain_diagrams # Generates diagrams to be shown in documentation
 doc_domain_diagrams:
 	#@docker-compose run $(API_SERVICE) python manage.py graph_models stock -g -o docs/diagrams/stock.png
 	@docker-compose run $(API_SERVICE) python manage.py graph_models -a -g -o docs/diagrams/system.png

@@ -295,7 +295,6 @@ if REDIS_SSL is True:
 
 # DB 0 will be used for cache
 REDIS_URL = BROKER_REDIS_BASE_URL.format(0)  # Redis - Channel 0
-print(REDIS_URL)
 # ============================================================ CACHE ===================================================
 CACHES = {
     'default': {
