@@ -89,3 +89,4 @@ celerybeat-schedule
 venv/
 ENV/
 myvenv/
+.pytest_cache
