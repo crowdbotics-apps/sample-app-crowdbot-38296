@@ -1,7 +1,7 @@
 [
   {
     "model": "users.user",
-    "pk": 1,
+    "pk": "0fd6183b-469e-4f01-a7b5-46df7bc5ed1f",
     "fields": {
       "password": "pbkdf2_sha256$390000$1Dzmv07tM9EWj06R3iQI6U$hYUgpdjv7IiCB8Lt5wicklkRRsarmiFlBEfwW0bGdqs=",
       "last_login": "2023-01-14T16:51:10Z",
@@ -13,7 +13,6 @@
       "is_staff": true,
       "is_active": true,
       "date_joined": "2022-12-27T20:52:04Z",
-      "name": "Super Admin",
       "groups": [],
       "user_permissions": []
     }
