@@ -13,30 +13,44 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-
 from django.contrib import admin
-from django.urls import path, include, re_path
-from django.views.generic.base import TemplateView
-from allauth.account.views import confirm_email
-from rest_framework import permissions
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.urls import path, include
 from drf_spectacular.views import SpectacularJSONAPIView, SpectacularSwaggerView
-
-urlpatterns = [
-    path("", include("apps.home.urls")),
-    path("accounts/", include("allauth.urls")),
-    path("modules/", include("apps.modules.urls")),
-    path("api/v1/", include("apps.home.api.v1.urls")),
-    path("admin/", admin.site.urls),
-    path("users/", include("apps.users.urls", namespace="users")),
-    #path("rest-auth/", include("rest_auth.urls")),
-    # Override email confirm to use allauth's HTML view instead of rest_auth's API view
-    #path("rest-auth/registration/account-confirm-email/<str:key>/", confirm_email),
-    #path("rest-auth/registration/", include("rest_auth.registration.urls")),
-]
 
 admin.site.site_header = "Sample App - Crowdbotic"
 admin.site.site_title = "Sample App - Crowdbotic Admin Portal"
 admin.site.index_title = "Sample App - Crowdbotic Admin"
+
+admin_urls = [
+    path('admin/docs/', include('django.contrib.admindocs.urls')),
+    path("admin/", admin.site.urls),
+]
+
+account_urls = [
+    path("accounts/", include("allauth.urls"))
+]
+
+module_urls = [
+    path("modules/", include("apps.modules.urls"))
+]
+
+schema_url_patterns = [
+    path('v1/', include(('apps.applications.api.urls', 'applications'), namespace='application')),
+    # path('v1/auth/', include(('rest_framework.urls', 'auth'), namespace='rest_framework')),
+    path('v1/auth/', include(('dj_rest_auth.urls', 'auth'), namespace='auth')),
+    path(
+        'v1/auth/registrations/',
+        include(('dj_rest_auth.registration.urls', 'auth-registration'), namespace='auth-registration')
+    ),
+]
+
+util_urls = [
+    path('i18n/', include('django.conf.urls.i18n')),
+    path('health/', include('health_check.urls')),
+]
+
+urlpatterns = admin_urls + account_urls + module_urls + schema_url_patterns + util_urls
 
 # swagger
 urlpatterns += [
@@ -44,3 +58,5 @@ urlpatterns += [
     path("api-docs/", SpectacularSwaggerView.as_view(url_name='schema'), name="api_docs")
 ]
 
+# ============================ STATIC CONFIG ================================ #
+urlpatterns += staticfiles_urlpatterns()
