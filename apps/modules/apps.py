@@ -1,7 +1,8 @@
 from django.apps import AppConfig
+from django.utils.translation import gettext_lazy as _
 
 
 class ModulesConfig(AppConfig):
     name = 'apps.modules'
     label = 'modules'
-    verbose_name = 'Crowdbotics Modules'
+    verbose_name = _('Crowdbotics Modules')
