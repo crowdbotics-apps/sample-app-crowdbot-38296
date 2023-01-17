@@ -51,13 +51,10 @@ DJANGO_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    
+    'django.contrib.admindocs',
+
     # postgres
     'django.contrib.postgres',
-]
-LOCAL_APPS = [
-    'apps.home',
-    'apps.users',
 ]
 THIRD_PARTY_APPS = [
     # Import and Export Resource
@@ -90,8 +87,8 @@ THIRD_PARTY_APPS = [
     'django_filters',
 
     # Rest Auth
-    #'rest_auth',
-    #'rest_auth.registration',
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -100,9 +97,14 @@ THIRD_PARTY_APPS = [
     # Rest API Doc
     'drf_spectacular',
 ]
+LOCAL_APPS = [
+    'apps.users',
+    'apps.applications',
+]
+
 MODULES_APPS = get_modules()
 
-INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS + MODULES_APPS
+INSTALLED_APPS = THIRD_PARTY_APPS + DJANGO_APPS + LOCAL_APPS + MODULES_APPS
 
 # ============================================== WEB APPLICATION =======================================================
 MIDDLEWARE = [
@@ -227,18 +229,18 @@ SOCIALACCOUNT_ADAPTER = "apps.users.adapters.SocialAccountAdapter"
 ACCOUNT_ALLOW_REGISTRATION = config("ACCOUNT_ALLOW_REGISTRATION", cast=bool, default=True)
 SOCIALACCOUNT_ALLOW_REGISTRATION = config("SOCIALACCOUNT_ALLOW_REGISTRATION", cast=bool, default=True)
 
-#REST_AUTH_SERIALIZERS = {
+# REST_AUTH_SERIALIZERS = {
 #    # Replace password reset serializer to fix 500 error
-#    "PASSWORD_RESET_SERIALIZER": "home.api.v1.serializers.PasswordSerializer",
-#}
-#REST_AUTH_REGISTER_SERIALIZERS = {
+#    "PASSWORD_RESET_SERIALIZER": "apps.home.api.v1.serializers.PasswordSerializer",
+# }
+# REST_AUTH_REGISTER_SERIALIZERS = {
 #    # Use custom serializer that has no username and matches web signup
-#    "REGISTER_SERIALIZER": "home.api.v1.serializers.SignupSerializer",
-#}
+#    "REGISTER_SERIALIZER": "apps.home.api.v1.serializers.SignupSerializer",
+# }
 
-REST_FRAMEWORK = {
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-}
+# REST_USE_JWT = True
+JWT_AUTH_COOKIE = 'auth'
+
 # ========================================= INTERNATIONALIZATION / DATETIME ============================================
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
@@ -254,11 +256,9 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-LOCALE_PATHS = [
-    os.path.join(BASE_DIR, 'locale'),
-    os.path.join(BASE_DIR, 'core', 'locale'),
-    os.path.join(BASE_DIR, 'apps', 'stock', 'locale'),
-]
+# LOCALE_PATHS = [
+#     os.path.join(BASE_DIR, 'locale'),
+# ]
 
 # ===================================================== FIXTURES / SEEDS ===============================================
 FIXTURE_DIRS = [
@@ -333,7 +333,8 @@ if USE_S3:
 
 # ====================================================== REST API / DOCS ===============================================
 REST_FRAMEWORK = {
-    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    # 'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.openapi.AutoSchema',
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     # 'DEFAULT_PERMISSION_CLASSES': [
@@ -352,10 +353,11 @@ SPECTACULAR_SETTINGS = {
         "persistAuthorization": True,
         "displayOperationId": True,
     },
-    "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAuthenticated"], \
-    "TITLE": "project API",
+    # "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAuthenticated"],
+    "TITLE": "Crowdbotics APPs API",
     "DESCRIPTION": "API documentation for project App",
     "VERSION": "v1",
+    'SCHEMA_PATH_PREFIX': '/v[0-9]',
 }
 
 
