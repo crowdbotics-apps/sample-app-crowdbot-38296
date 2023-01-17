@@ -1,0 +1,63 @@
+"""
+Deletable model mixin
+"""
+
+from django.db import IntegrityError, models, router
+from django.db.models.deletion import Collector
+from django.utils.translation import gettext_lazy as _
+
+
+class NotDeletableError(IntegrityError):
+    """Not deletable exception"""
+
+    def __init__(self, *args, **kwargs):
+        super(NotDeletableError, self).__init__(
+            _('You cannot delete this record.'),
+            *args,
+            **kwargs
+        )
+
+
+class CheckerCollector(Collector):
+    """Collection checker for deletable model"""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.protected = set()
+
+    def collect(self, objs, **kwargs):
+        """ @see Collector.collect """
+        try:
+            return super().collect(objs, **kwargs)
+
+        except models.ProtectedError as exc:
+            self.protected.update(exc.protected_objects)
+
+    def can_fast_delete(self, objs, from_field=None):
+        """
+        We always want to load the objects into memory so that we can display
+        them to the user in confirm page.
+        """
+        return False
+
+
+class DeletableModelMixin:
+    """Deletable model checker"""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.checker = None
+
+    def is_deletable(self):
+        """Checks if model is deletable"""
+        if not self.checker:
+            self.checker = CheckerCollector(using=router.db_for_write(self))
+
+        self.checker.collect(objs=[self])
+        return len(self.checker.protected) == 0
+
+    def check_deletable(self):
+        """Raises an exception if model is not deletable"""
+
+        if self.is_deletable() is False:
+            raise NotDeletableError()
