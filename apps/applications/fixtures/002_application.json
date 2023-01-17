@@ -1,0 +1,36 @@
+[
+  {
+    "model": "applications.application",
+    "pk": "6545085e-5af8-4c6c-9c8f-e2012fbd0f4f",
+    "fields": {
+      "active": true,
+      "created_at": "2023-01-14T19:56:59.757Z",
+      "updated_at": "2023-01-14T19:56:59.757Z",
+      "name": "My React Native Application",
+      "description": "That is a react native app.",
+      "type": "mobile",
+      "framework": "react-native",
+      "domain_name": "https://app.mydomain.io",
+      "screenshot": "https://w7.pngwing.com/pngs/114/579/png-transparen",
+      "user": "0fd6183b-469e-4f01-a7b5-46df7bc5ed1f",
+      "plan": "36579a29-e404-4c75-9aa7-9907801aef03"
+    }
+  },
+  {
+    "model": "applications.application",
+    "pk": "a6231d4a-b709-4114-98cd-3d3129eba332",
+    "fields": {
+      "active": true,
+      "created_at": "2023-01-14T19:40:15.627Z",
+      "updated_at": "2023-01-14T19:56:35.085Z",
+      "name": "My Django Application",
+      "description": "That is a django sample application.",
+      "type": "web",
+      "framework": "django",
+      "domain_name": "https://app.mydomain.io",
+      "screenshot": "https://w7.pngwing.com/pngs/114/579/png-transparent-pink-cross-stroke-ink-brush-pen-red-ink-brush-ink-leave-the-material-text.png",
+      "user": "0fd6183b-469e-4f01-a7b5-46df7bc5ed1f",
+      "plan": null
+    }
+  }
+]

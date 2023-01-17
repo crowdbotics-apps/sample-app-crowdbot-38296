@@ -1,0 +1,26 @@
+[
+  {
+    "model": "applications.plan",
+    "pk": "36579a29-e404-4c75-9aa7-9907801aef03",
+    "fields": {
+      "active": true,
+      "created_at": "2023-01-14T19:36:04.449Z",
+      "updated_at": "2023-01-14T19:36:04.449Z",
+      "name": "Pro",
+      "description": "[x] Deploy to the iOS App Store or Google Play Store\r\n[x] Analytics and SSL Certificate (HTTPS)\r\n[x] Custom domain support for web apps\r\n[x] PostgreSQL storage with up to 10M rows of data included\r\n[x] Application hosting on Heroku; AWS; or Google Cloud Provider\r\n[x] Professional Engineering Services available for $75/hour\r\n[x] Support with 1-Day turnaround",
+      "price": "199.00"
+    }
+  },
+  {
+    "model": "applications.plan",
+    "pk": "6ba1acfb-d52f-4f6d-9d63-514c9c1a279a",
+    "fields": {
+      "active": true,
+      "created_at": "2023-01-14T19:36:47.965Z",
+      "updated_at": "2023-01-14T19:38:11.159Z",
+      "name": "Advanced",
+      "description": "[x] Development/Staging and Production servers\r\n[x] Application hosting on Heroku; AWS; Google Cloud Provider; or Azure Specialist\r\n[x] Professional Engineering Services available for $150/hour\r\n[x] Support via Slack or email with same-day turnaround",
+      "price": "499.00"
+    }
+  }
+]

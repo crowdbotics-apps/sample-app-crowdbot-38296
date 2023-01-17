@@ -1,0 +1,15 @@
+[
+  {
+    "model": "applications.subscriptionhistory",
+    "pk": "a320feab-75dc-4bfb-9212-de13491a587e",
+    "fields": {
+      "app": "6545085e-5af8-4c6c-9c8f-e2012fbd0f4f",
+      "old_plan_name": "unknown",
+      "current_plan_name": "Pro",
+      "action_type": "subscribe",
+      "old_price": "0.00",
+      "current_price": "199.00",
+      "created_at": "2023-01-16T18:26:23.432Z"
+    }
+  }
+]
