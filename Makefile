@@ -8,18 +8,17 @@ help:
 #--------------------------------------- DB -----------------------------------
 .PHONY: db_local_seeds # Adds initial data to the system in local environment
 db_local_seeds:
-	@docker-compose exec $(API_SERVICE) python manage.py loaddata 000_site 000_user
+	@docker-compose run $(API_SERVICE) python manage.py loaddata 000_site 000_user
 
-.PHONY: db_stock_seeds # Adds Stock seeds to database
-db_stock_seeds:
-	@docker-compose run $(API_SERVICE) python manage.py loaddata 000_category
-	@docker-compose run $(API_SERVICE) python manage.py loaddata 001_product
+.PHONY: db_application_seeds # Adds Application seeds to database
+db_application_seeds:
+	@docker-compose run $(API_SERVICE) python manage.py loaddata 001_plan 002_application 003_subscription_history
 
 .PHONY: db_update # Updates database with fixtures
 db_update:
-	@docker-compose exec $(API_SERVICE) python manage.py migrate
+	@docker-compose run $(API_SERVICE) python manage.py migrate
 	@make db_local_seeds
-	@make db_stock_seeds
+	@make db_application_seeds
 
 .PHONY: db_flush # Destroys and recreates database services from scratch
 db_flush:
@@ -31,5 +30,5 @@ db_flush:
 #--------------------------------------- DOCS -----------------------------------
 .PHONY: doc_domain_diagrams # Generates diagrams to be shown in documentation
 doc_domain_diagrams:
-	#@docker-compose run $(API_SERVICE) python manage.py graph_models stock -g -o docs/diagrams/stock.png
 	@docker-compose run $(API_SERVICE) python manage.py graph_models -a -g -o docs/diagrams/system.png
+	@docker-compose run $(API_SERVICE) python manage.py graph_models applications -g -o docs/diagrams/applications.png
